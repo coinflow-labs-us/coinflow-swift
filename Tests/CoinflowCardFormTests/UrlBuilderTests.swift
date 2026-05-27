@@ -12,7 +12,7 @@ final class UrlBuilderTests: XCTestCase {
         )
         XCTAssertEqual(
             url?.absoluteString,
-            "https://coinflow.cash/form/v2/card-form?merchantId=merchant_abc&source=ios-sdk"
+            "https://coinflow.cash/form/v2/card-form?merchantId=merchant_abc&source=ios-sdk&useHeightChange=true"
         )
     }
 
@@ -26,7 +26,7 @@ final class UrlBuilderTests: XCTestCase {
         )
         XCTAssertEqual(
             url?.absoluteString,
-            "https://sandbox.coinflow.cash/form/v2/cvv-form?merchantId=m1&source=ios-sdk"
+            "https://sandbox.coinflow.cash/form/v2/cvv-form?merchantId=m1&source=ios-sdk&useHeightChange=true"
         )
     }
 

@@ -99,6 +99,14 @@ public struct CoinflowCardFormView: UIViewRepresentable {
             if method == "tokenize" {
                 handleTokenizeResponse(parsed)
             }
+
+            if method == "heightChange" {
+                if let height = parseHeight(parsed["data"]) {
+                    DispatchQueue.main.async {
+                        self.cardFormCoordinator.contentHeight = height
+                    }
+                }
+            }
         }
 
         private func handleTokenizeResponse(_ parsed: [String: Any]) {
@@ -128,6 +136,7 @@ internal func buildCardFormURL(
     var queryItems = [
         URLQueryItem(name: "merchantId", value: merchantId),
         URLQueryItem(name: "source", value: "ios-sdk"),
+        URLQueryItem(name: "useHeightChange", value: "true"),
     ]
 
     if let theme = theme, let themeData = try? JSONEncoder().encode(theme),
@@ -173,6 +182,17 @@ private func buildTokenResponse(_ data: [String: Any]) -> CardFormTokenResponse 
     )
 }
 
+internal func parseHeight(_ raw: Any?) -> CGFloat? {
+    let value: Double?
+    switch raw {
+    case let n as NSNumber: value = n.doubleValue
+    case let s as String: value = Double(s)
+    default: value = nil
+    }
+    guard let v = value, v > 0 else { return nil }
+    return CGFloat(ceil(v))
+}
+
 public enum CoinflowError: Error, LocalizedError {
     case webViewNotLoaded
     case tokenizationFailed(String)
@@ -190,6 +210,7 @@ public enum CoinflowError: Error, LocalizedError {
 @MainActor
 public class CardFormCoordinator: ObservableObject {
     @Published public var isLoaded = false
+    @Published public var contentHeight: CGFloat? = nil
     var webView: WKWebView?
     var loadedURL: URL?
     var tokenizeContinuation: CheckedContinuation<CardFormTokenResponse, Error>?
@@ -200,6 +221,7 @@ public class CardFormCoordinator: ObservableObject {
         webView = nil
         loadedURL = nil
         isLoaded = false
+        contentHeight = nil
         if let continuation = tokenizeContinuation {
             tokenizeContinuation = nil
             continuation.resume(throwing: CoinflowError.tokenizationFailed("Card form disposed"))
