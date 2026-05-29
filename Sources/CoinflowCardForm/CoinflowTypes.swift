@@ -16,6 +16,7 @@ public enum CardFormVariant: String {
 public struct MerchantTheme: Encodable {
     public var primary: String?
     public var background: String?
+    public var cardBackground: String?
     public var backgroundAccent: String?
     public var backgroundAccent2: String?
     public var textColor: String?
@@ -29,11 +30,13 @@ public struct MerchantTheme: Encodable {
     public var cardNumberPlaceholder: String?
     public var cvvPlaceholder: String?
     public var expirationPlaceholder: String?
+    public var placeholderColor: String?
     public var showCardIcon: Bool?
 
     public init(
         primary: String? = nil,
         background: String? = nil,
+        cardBackground: String? = nil,
         backgroundAccent: String? = nil,
         backgroundAccent2: String? = nil,
         textColor: String? = nil,
@@ -47,10 +50,12 @@ public struct MerchantTheme: Encodable {
         cardNumberPlaceholder: String? = nil,
         cvvPlaceholder: String? = nil,
         expirationPlaceholder: String? = nil,
+        placeholderColor: String? = nil,
         showCardIcon: Bool? = nil
     ) {
         self.primary = primary
         self.background = background
+        self.cardBackground = cardBackground
         self.backgroundAccent = backgroundAccent
         self.backgroundAccent2 = backgroundAccent2
         self.textColor = textColor
@@ -64,6 +69,7 @@ public struct MerchantTheme: Encodable {
         self.cardNumberPlaceholder = cardNumberPlaceholder
         self.cvvPlaceholder = cvvPlaceholder
         self.expirationPlaceholder = expirationPlaceholder
+        self.placeholderColor = placeholderColor
         self.showCardIcon = showCardIcon
     }
 }

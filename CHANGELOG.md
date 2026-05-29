@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Add `cardBackground` to `MerchantTheme` to control the inner card-entry surface independently of the outer canvas `background`.
+- Add `placeholderColor` to `MerchantTheme` to control placeholder text color in card form inputs.
+- Fix the card brand icon being hidden when the card form reflows to a stacked two-row layout at narrow widths.
+
 ## 0.2.0
 
 - Add `@Published var contentHeight: CGFloat?` to `CardFormCoordinator`. The hosted form now reports its rendered content height (CSS pixels, 1:1 with `CGFloat` points) whenever it reflows — e.g. when narrow widths cause inputs to wrap to multiple rows. SwiftUI hosts can bind `.frame(height: coordinator.contentHeight ?? defaultHeight)` to keep the container fitted.
