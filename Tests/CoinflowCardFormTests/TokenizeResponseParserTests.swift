@@ -34,6 +34,22 @@ final class TokenizeResponseParserTests: XCTestCase {
         XCTAssertEqual(response.expYear, "2030")
     }
 
+    func testParsesForterToken() throws {
+        let result = parseTokenizeResponse([
+            "method": "tokenize",
+            "data": "{\"token\":\"tok_xyz\",\"forterToken\":\"forter_abc\"}"
+        ])
+        let response = try result.get()
+        XCTAssertEqual(response.token, "tok_xyz")
+        XCTAssertEqual(response.forterToken, "forter_abc")
+    }
+
+    func testForterTokenAbsentIsNil() throws {
+        let result = parseTokenizeResponse(["method": "tokenize", "data": "{\"token\":\"tok_xyz\"}"])
+        let response = try result.get()
+        XCTAssertNil(response.forterToken)
+    }
+
     func testParsesNestedObjectData() throws {
         let result = parseTokenizeResponse([
             "method": "tokenize",

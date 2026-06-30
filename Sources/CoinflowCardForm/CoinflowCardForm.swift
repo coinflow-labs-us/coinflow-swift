@@ -178,7 +178,8 @@ private func buildTokenResponse(_ data: [String: Any]) -> CardFormTokenResponse 
     CardFormTokenResponse(
         token: data["token"] as? String ?? "",
         expMonth: data["expMonth"] as? String,
-        expYear: data["expYear"] as? String
+        expYear: data["expYear"] as? String,
+        forterToken: data["forterToken"] as? String
     )
 }
 

@@ -84,4 +84,6 @@ public struct CardFormTokenResponse {
     public let token: String
     public let expMonth: String?
     public let expYear: String?
+    /// Forter device token captured in the card-form WebView; forward it as the `x-forter-token` header on your charge request so Forter can score the transaction. Nil if the Forter SDK has not loaded.
+    public let forterToken: String?
 }
